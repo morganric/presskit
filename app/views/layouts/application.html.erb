@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="presskitApp">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Presskit" %></title>
@@ -8,13 +8,15 @@
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body ng-controller="ReleasesListCtrl">
     <header>
       <%= render 'layouts/navigation' %>
     </header>
     <main role="main">
+      <section class="container" >
        <%= render 'layouts/messages' %>
        <%= yield %>
+       </section>
     </main>
   </body>
 </html>

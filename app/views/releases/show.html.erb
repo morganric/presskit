@@ -1,0 +1,29 @@
+<h1>
+  <%= @release.title %> 
+  <small><label class="label label-primary pull-right"><i class="glyphicon glyphicon-eye-open"></i> <%= pluralize(@release.views, 'view') %></label></small>
+</h1>
+
+
+<h3>
+  by: <%= @release.user.email %>
+</h3>
+
+<p class="well">
+  <%= @release.abstract %>
+</p>
+
+
+<h4>
+
+  <%= button_to pdf_download_url(@release), :method => 'get', :target => "_blank", :class => "btn btn-primary"  do %>
+    <i class='glyphicon glyphicon-white glyphicon-cloud-download'></i> 
+    <%#= @release.pdf_file_name %> <%= number_to_human_size(@release.pdf_file_size) %>
+  <% end %>
+</h4>
+
+<p>
+  <strong>Under embargo until:</strong>
+  <%= @release.embargo_date %>
+</p>
+
+<%= link_to 'Edit', edit_release_path(@release) %> 

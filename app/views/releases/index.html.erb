@@ -1,0 +1,27 @@
+<h1>Listing releases</h1>
+
+<% if !current_user.nil? and current_user.admin? %>
+<ol>
+  <% @releases.each do |release| %>
+    <h3><li>
+    	<%= link_to release.title, release  %> <small><%= number_to_human_size(release.pdf_file_size) %></small>
+
+    	<br/>
+    	<small>
+    		<% unless release.embargo_date - Date.today < 0 %>
+    			<!-- - Embargoed until <%#= release.embargo_date.to_formatted_s(:long) %> -->
+    			<label class="label label-primary">Under Embargo</label>
+    		<% else %>
+    			<label class="label label-success">Live</label>
+    		<% end %>
+		</small>
+    	<small>Uploaded on <%= release.created_at.to_formatted_s(:long) %></small>
+
+
+    </li></h3>
+  <% end %>
+  </ol>
+
+<% end %>
+
+<%= link_to 'New Release', new_release_path %>

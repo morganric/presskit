@@ -16,6 +16,8 @@ gem 'pg'
 gem 'pundit'
 gem 'simple_form'
 gem 'thin'
+gem "paperclip", "~> 4.1"
+gem 'angularjs-rails'
 group :development do
     gem 'sqlite3'
   gem 'better_errors'

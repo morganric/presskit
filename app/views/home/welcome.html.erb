@@ -1,0 +1,12 @@
+<h1>Welcome</h1>
+<ol class="releases">
+           <h2><li ng-repeat="release in releases | filter:query">
+           <%= link_to "{{ release.title }}", "/releases/{{release.id}}" %>
+            <small>
+           <label class="label label-primary pull-right"><i class='glyphicon glyphicon-white glyphicon-eye-open'></i> {{ release.views }}</label>
+            <p>{{ release.abstract }}</p>
+            <p>Released on: {{ release.embargo_date }}</p> 
+            </small>
+            <hr/>
+          </li></h2>
+  </ol>

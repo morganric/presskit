@@ -1,6 +1,23 @@
-<h3>Home</h3>
+<h1>Latest Press Releases</h1>
+
+
+Search: <input ng-model="query">
+
+
 <% if !current_user.nil? and current_user.admin? %>
-  <% @users.each do |user| %>
-    <p>User: <%=link_to user.email, user %> Role: <%= user.role unless user.role.nil? %></p>
-  <% end %>
+
+
+  <ol class="releases">
+           <h2><li ng-repeat="release in releases | filter:query">
+           <%= link_to "{{ release.title }}", "/releases/{{release.id}}" %>
+            <small>
+           <label class="label label-primary pull-right"><i class='glyphicon glyphicon-white glyphicon-eye-open'></i> {{ release.views }}</label>
+            <p>{{ release.abstract }}</p>
+              <p>{{ release.embargo_date }}</p> 
+            </small>
+            <hr/>
+          </li></h2>
+  </ol>
+
 <% end %>
+

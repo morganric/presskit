@@ -11,11 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323153343) do
+ActiveRecord::Schema.define(version: 20140323214905) do
+
+  create_table "releases", force: true do |t|
+    t.string   "title"
+    t.text     "abstract"
+    t.string   "pdf"
+    t.string   "pdf_file_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "embargo_date"
+    t.integer  "pdf_file_size"
+    t.string   "pdf_content_type"
+    t.integer  "views",            default: 0
+  end
+
+  create_table "user_releases", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "release_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_releases", ["user_id", "release_id"], name: "index_user_releases_on_user_id_and_release_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -32,9 +54,20 @@ ActiveRecord::Schema.define(version: 20140323153343) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.integer  "role"
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+    t.integer  "invitations_count",      default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count"
+  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
